@@ -8,7 +8,7 @@ jobs:
     environment: dev
     steps:
       - name: Print Environment
-    run: echo "Deploying to dev"
+        run: echo "Deploying to dev"
 
   qa:
     runs-on: ubuntu-latest
@@ -16,7 +16,7 @@ jobs:
     needs: [dev]
     steps:
       - name: Print Environment
-    run: echo "Deploying to qa"
+        run: echo "Deploying to qa"
 
   uat:
     runs-on: ubuntu-latest
@@ -24,7 +24,7 @@ jobs:
     needs: [qa]
     steps:
       - name: Print Environment
-    run: echo "Deploying to uat"
+        run: echo "Deploying to uat"
 
   preprod:
     runs-on: ubuntu-latest
@@ -32,7 +32,7 @@ jobs:
     environment: preprod
     steps:
       - name: Print Environment
-    run: echo "Deploying to preprod"
+        run: echo "Deploying to preprod"
 
   prod:
     runs-on: ubuntu-latest
@@ -40,4 +40,4 @@ jobs:
     environment: prod
     steps:
       - name: Print Environment
-    run: echo "Deploying to prod"
+        run: echo "Deploying to prod"
