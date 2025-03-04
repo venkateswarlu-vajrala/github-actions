@@ -1,0 +1,43 @@
+## Sample github actions workflow which prints environment name and has one job per environment dev , qa, uat,preprod,prod
+
+name: Deploy
+
+jobs:
+  dev:
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: Print Environment
+    run: echo "Deploying to dev"
+
+  qa:
+    runs-on: ubuntu-latest
+    environment: qa
+    needs: [dev]
+    steps:
+      - name: Print Environment
+    run: echo "Deploying to qa"
+
+  uat:
+    runs-on: ubuntu-latest
+    environment: uat
+    needs: [qa]
+    steps:
+      - name: Print Environment
+    run: echo "Deploying to uat"
+
+  preprod:
+    runs-on: ubuntu-latest
+    needs: [uat]
+    environment: preprod
+    steps:
+      - name: Print Environment
+    run: echo "Deploying to preprod"
+
+  prod:
+    runs-on: ubuntu-latest
+    needs: [preprod]
+    environment: prod
+    steps:
+      - name: Print Environment
+    run: echo "Deploying to prod"
