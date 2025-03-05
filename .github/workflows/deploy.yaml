@@ -24,12 +24,14 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    if: github.event_name == 'push'
     needs: [quality_checks, tests]
     steps:
       - name: Print Environment
         run: echo "Running build"
   dev:
     runs-on: ubuntu-latest
+    if: github.event_name == 'push'
     environment: dev
     needs: [build]
     steps:
@@ -38,6 +40,7 @@ jobs:
 
   qaauto:
     runs-on: ubuntu-latest
+    if: github.event_name == 'push'
     environment: qaauto
     needs: [dev]
     steps:
@@ -46,6 +49,7 @@ jobs:
 
   qa:
     runs-on: ubuntu-latest
+    if: github.event_name == 'push'
     environment: qa
     needs: [qaauto]
     steps:
@@ -54,6 +58,7 @@ jobs:
 
   uat:
     runs-on: ubuntu-latest
+    if: github.event_name == 'push'
     environment: uat
     needs: [qa]
     steps:
@@ -62,6 +67,7 @@ jobs:
 
   preprod:
     runs-on: ubuntu-latest
+    if: github.event_name == 'push'
     needs: [uat]
     environment: preprod
     steps:
@@ -70,6 +76,7 @@ jobs:
 
   prod:
     runs-on: ubuntu-latest
+    if: github.event_name == 'push'
     needs: [preprod]
     environment: prod
     steps:
