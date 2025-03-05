@@ -18,6 +18,14 @@ jobs:
       - name: Print Environment
         run: echo "Deploying to dev"
 
+  qaauto:
+    runs-on: ubuntu-latest
+    environment: qaauto
+    needs: [dev]
+    steps:
+      - name: Print Environment
+        run: echo "Deploying to qaauto"
+
   qa:
     runs-on: ubuntu-latest
     environment: qa
