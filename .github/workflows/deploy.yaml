@@ -29,7 +29,7 @@ jobs:
   qa:
     runs-on: ubuntu-latest
     environment: qa
-    needs: [dev]
+    needs: [qaauto]
     steps:
       - name: Print Environment
         run: echo "Deploying to qa"
