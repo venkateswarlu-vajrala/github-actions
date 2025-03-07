@@ -14,6 +14,13 @@ jobs:
   quality_checks:
     runs-on: ubuntu-latest
     steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: list directories
+        run: |
+          ls -latr
+          pwd
+          tree
       - name: Print Environment
         run: echo "Running quality checks"
   tests:
