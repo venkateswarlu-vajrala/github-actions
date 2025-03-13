@@ -69,7 +69,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
     environment: uat
-    needs: [qa]
+    needs: [qa,dev]
     steps:
       - name: Print Environment
         run: echo "Deploying to uat"
