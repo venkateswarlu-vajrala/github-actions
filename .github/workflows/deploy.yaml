@@ -9,6 +9,8 @@ on:
   push:
     branches:
       - main
+      - hotfix-uat/**
+      - hotfix-prod/**
 
 jobs:
   quality_checks:
@@ -40,7 +42,7 @@ jobs:
         run: echo "Running build"
   dev:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    if:  github.ref_name == 'main'
     environment: dev
     needs: [build]
     steps:
@@ -49,7 +51,7 @@ jobs:
 
   qaauto:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    if:  github.ref_name == 'main'
     environment: qaauto
     needs: [dev]
     steps:
@@ -58,7 +60,7 @@ jobs:
 
   qa:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    if:  github.ref_name == 'main'
     environment: qa
     needs: [qaauto]
     steps:
@@ -67,7 +69,7 @@ jobs:
 
   uat:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    if: startsWith(github.ref_name, 'hotfix-prod') == false && failure() != true && cancelled() != true
     environment: uat
     needs: [qa,dev]
     steps:
@@ -76,7 +78,7 @@ jobs:
 
   preprod:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    if: failure() != true && cancelled() != true
     needs: [uat]
     environment: preprod
     steps:
@@ -85,7 +87,7 @@ jobs:
 
   prod:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    if: failure() != true && cancelled() != true
     needs: [preprod]
     environment: prod
     steps:
