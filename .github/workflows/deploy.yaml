@@ -59,7 +59,9 @@ jobs:
     needs: [dev]
     steps:
       - name: Print Environment
-        run: echo "Deploying to qaauto"
+        run: |
+          echo "Deploying to qaauto"
+          sleep 60
 
   qa:
     runs-on: ubuntu-latest
