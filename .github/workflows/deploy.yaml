@@ -61,7 +61,7 @@ jobs:
       - name: Print Environment
         run: |
           echo "Deploying to qaauto"
-          sleep 60
+          sleep 120
 
   qa:
     runs-on: ubuntu-latest
