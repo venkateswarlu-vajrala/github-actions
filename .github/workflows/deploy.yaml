@@ -12,6 +12,10 @@ on:
       - hotfix-uat/**
       - hotfix-prod/**
 
+concurrency: 
+  cancel-in-progress: false
+  group: ${{ github.ref_name }}
+
 jobs:
   quality_checks:
     runs-on: ubuntu-latest
@@ -51,9 +55,6 @@ jobs:
 
   qaauto:
     runs-on: ubuntu-latest
-    concurrency: 
-      group: "${{ github.ref_name }}-functional-automation"
-      cancel-in-progress: false
     if:  github.ref_name == 'main'
     environment: qaauto
     needs: [dev]
