@@ -51,6 +51,9 @@ jobs:
 
   qaauto:
     runs-on: ubuntu-latest
+    concurrency: 
+      group: "${{ github.ref_name }}-functional-automation"
+      cancel-in-progress: false
     if:  github.ref_name == 'main'
     environment: qaauto
     needs: [dev]
