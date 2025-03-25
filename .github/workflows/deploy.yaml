@@ -12,10 +12,6 @@ on:
       - hotfix-uat/**
       - hotfix-prod/**
 
-concurrency: 
-  cancel-in-progress: false
-  group: ${{ github.ref_name }}
-
 jobs:
   quality_checks:
     runs-on: ubuntu-latest
@@ -57,6 +53,9 @@ jobs:
     runs-on: ubuntu-latest
     if:  github.ref_name == 'main'
     environment: qaauto
+    concurrency:
+      group: ${{ github.ref_name }}
+      cancel-in-progress: false
     needs: [dev]
     steps:
       - name: Print Environment
@@ -77,7 +76,7 @@ jobs:
     runs-on: ubuntu-latest
     if: startsWith(github.ref_name, 'hotfix-prod') == false && failure() != true && cancelled() != true
     environment: uat
-    needs: [qa,dev]
+    needs: [qa]
     steps:
       - name: Print Environment
         run: echo "Deploying to uat"
