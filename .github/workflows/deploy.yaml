@@ -76,7 +76,7 @@ jobs:
     runs-on: ubuntu-latest
     if: startsWith(github.ref_name, 'hotfix-prod') == false && failure() != true && cancelled() != true
     environment: uat
-    needs: [qa]
+    needs: [qaauto,qa]
     steps:
       - name: Print Environment
         run: echo "Deploying to uat"
